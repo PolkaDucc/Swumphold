@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd6xynfobd0od"]
+
+[ext_resource type="Script" uid="uid://biya1225s65ys" path="res://scenes/enemies/enemy.gd" id="1_8e3ao"]
+[ext_resource type="Texture2D" uid="uid://cq36cpu3h4ppc" path="res://art/sprites/placeholdersfordemo/Enemy_W_Bandit-Sheet.png" id="2_38ino"]
+[ext_resource type="Resource" uid="uid://dbavv0jehux4w" path="res://resources/enemies/chompah.tres" id="2_fcftc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uxs0p"]
+radius = 8.944272
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 21
+script = ExtResource("1_8e3ao")
+enemy_data = ExtResource("2_fcftc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uxs0p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_38ino")
+hframes = 38

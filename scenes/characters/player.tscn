@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0qokqbdjbtay"]
+
+[ext_resource type="Script" uid="uid://bs6rpnaha6yi2" path="res://scenes/characters/player.gd" id="1_rp718"]
+[ext_resource type="Resource" uid="uid://b8r4hnp3c51kl" path="res://resources/characters/frug.tres" id="2_yewv4"]
+[ext_resource type="Texture2D" uid="uid://dg1frrmlihcf4" path="res://art/sprites/placeholdersfordemo/placeholder_frug.png" id="3_76oj4"]
+[ext_resource type="Texture2D" uid="uid://bbeitvld8kuw" path="res://art/sprites/placeholdersfordemo/placeholder_weapon.png" id="4_dyp2m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oyee1"]
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 26
+script = ExtResource("1_rp718")
+character_data = ExtResource("2_yewv4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_76oj4")
+hframes = 38
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oyee1")
+
+[node name="WeaponPivot" type="Node2D" parent="."]
+position = Vector2(5.505, 8.23)
+
+[node name="WeaponSprite" type="Sprite2D" parent="WeaponPivot"]
+position = Vector2(5.59, -0.985)
+texture = ExtResource("4_dyp2m")
+
+[node name="AbilityCooldownTimer" type="Timer" parent="."]

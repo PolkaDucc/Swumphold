@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi1pyf6guggec"]
+
+[ext_resource type="Script" uid="uid://bw3v1gfw4e1i1" path="res://scenes/placeholderfordemo/main.gd" id="1_cohi2"]
+[ext_resource type="PackedScene" uid="uid://d0qokqbdjbtay" path="res://scenes/characters/player.tscn" id="2_cohi2"]
+[ext_resource type="PackedScene" uid="uid://dd6xynfobd0od" path="res://scenes/enemies/enemy.tscn" id="3_ngjpw"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_cohi2")
+
+[node name="Player" parent="." instance=ExtResource("2_cohi2")]
+
+[node name="Enemy" parent="." instance=ExtResource("3_ngjpw")]
+position = Vector2(355.2, 198.79)

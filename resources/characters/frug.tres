@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=2 format=3 uid="uid://b8r4hnp3c51kl"]
+
+[ext_resource type="Script" uid="uid://bucygomaw0ay6" path="res://resources/characters/character_data.gd" id="1_cnwge"]
+
+[resource]
+script = ExtResource("1_cnwge")
+max_health = 120
+defense = 5
+ability_name = "Frug's Lucky Tongue"
+ability_description = "Frug’s Lucky Tongue. Cooldown 8s. Gives Frug a tongue that shoots out towards enemies and bullets. On enemy hit, Frug deals 200% of his current max health as damage. On bullet hit, Frug heals for 30% of the bullet's damage. This has a 5% chance to crit, with crits doubling these values"
+metadata/_custom_type_script = "uid://bucygomaw0ay6"

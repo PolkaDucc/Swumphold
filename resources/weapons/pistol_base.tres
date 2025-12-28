@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="WeaponBaseData" load_steps=2 format=3 uid="uid://cwne3wil518ry"]
+
+[ext_resource type="Script" uid="uid://dqglgg7q010ay" path="res://resources/weapons/weapon_base_data.gd" id="1_ll0gr"]
+
+[resource]
+script = ExtResource("1_ll0gr")
+part_types = Array[int]([0, 1, 2, 3])
+metadata/_custom_type_script = "uid://dqglgg7q010ay"

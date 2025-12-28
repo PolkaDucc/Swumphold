@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponBaseData" load_steps=2 format=3 uid="uid://bpbw0pdalgvve"]
+
+[ext_resource type="Script" uid="uid://dqglgg7q010ay" path="res://resources/weapons/weapon_base_data.gd" id="1_s6037"]
+
+[resource]
+script = ExtResource("1_s6037")
+weapon_type = 6
+base_damage = 7
+base_puncture = 7
+base_magazine_size = 7
+base_crit_chance = 0.07
+base_reload_speed = 3.5
+part_types = Array[int]([4, 5, 6])
+metadata/_custom_type_script = "uid://dqglgg7q010ay"
