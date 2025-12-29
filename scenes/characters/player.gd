@@ -18,13 +18,10 @@ var current_ammo: int = 0
 var is_reloading: bool = false
 
 func _ready() -> void:
-	print("Player _ready called")
-	print("Character data: ", character_data)
 	if character_data:
 		current_health = character_data.max_health
 		_equip_starting_weapon()
 	else:
-		print("No character data!")
 		current_health = 100
 
 func _equip_starting_weapon() -> void:
@@ -90,3 +87,21 @@ func _start_reload() -> void:
 	current_ammo = current_weapon.final_magazine_size
 	is_reloading = false
 	print("Reload complete! Ammo: ", current_ammo)
+
+func take_damage(amount: int, puncture: int = 0) -> void:
+	var effective_defense = character_data.defense if character_data else 0
+	
+	var puncture_percent = clamp(puncture / 100.0, 0.0, 0.88)
+	effective_defense = int(effective_defense * (1.0 - puncture_percent))
+	
+	var damage_multiplier = 100.0 / (100.0 + effective_defense)
+	var final_damage = int(amount * damage_multiplier)
+	
+	current_health -= final_damage
+	print("Player took ", final_damage, " damage! HP: ", current_health, "/", character_data.max_health if character_data else 100)
+	
+	if current_health <= 0:
+		_die()
+
+func _die() -> void:
+	print("Player died!")

@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://mcmk0v1dbyqu"]
+
+[ext_resource type="FontFile" uid="uid://c8yh52ctcd8ds" path="res://art/fonts/BoldPixels.otf" id="1_1vcc2"]
+[ext_resource type="Script" uid="uid://bxpg5oakyp6ap" path="res://scenes/ui/health_bar.gd" id="1_qi2ti"]
+[ext_resource type="Script" uid="uid://cbes40ree1uqf" path="res://scenes/ui/tick_container.gd" id="3_4rf34"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rf34"]
+bg_color = Color(0.92099476, 0.9209946, 0.9209946, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qi2ti"]
+bg_color = Color(0.6287473, 0, 0.1075935, 1)
+
+[node name="EnemyHealthBarUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_qi2ti")
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -17.0
+offset_right = 127.0
+offset_bottom = -7.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 9
+text = "Enemy Name"
+horizontal_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -11.0
+offset_right = 9.0
+offset_bottom = 1.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_1vcc2")
+theme_override_font_sizes/font_size = 12
+text = "30"
+horizontal_alignment = 2
+
+[node name="DamageBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -8.0
+offset_right = 70.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_4rf34")
+max_value = 99999.0
+value = 1.0
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -8.0
+offset_right = 70.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_qi2ti")
+max_value = 99999.0
+value = 1.0
+show_percentage = false
+
+[node name="StatusContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_right = 91.0
+offset_bottom = 10.0
+
+[node name="TickContainer" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 9.0
+offset_top = -8.0
+offset_right = 70.0
+script = ExtResource("3_4rf34")

@@ -8,6 +8,7 @@
 script = ExtResource("1_cohi2")
 
 [node name="Player" parent="." instance=ExtResource("2_cohi2")]
+position = Vector2(23, 27)
 
 [node name="Enemy" parent="." instance=ExtResource("3_ngjpw")]
-position = Vector2(355.2, 198.79)
+position = Vector2(449, 239)

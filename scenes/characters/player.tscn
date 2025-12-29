@@ -5,7 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://dg1frrmlihcf4" path="res://art/sprites/placeholdersfordemo/placeholder_frug.png" id="3_76oj4"]
 [ext_resource type="Texture2D" uid="uid://bbeitvld8kuw" path="res://art/sprites/placeholdersfordemo/placeholder_weapon.png" id="4_dyp2m"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_oyee1"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
+size = Vector2(13, 14)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 26
@@ -17,7 +18,8 @@ texture = ExtResource("3_76oj4")
 hframes = 38
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_oyee1")
+position = Vector2(-0.5, 9)
+shape = SubResource("RectangleShape2D_dyp2m")
 
 [node name="WeaponPivot" type="Node2D" parent="."]
 position = Vector2(5.505, 8.23)

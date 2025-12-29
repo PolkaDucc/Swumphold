@@ -16,3 +16,13 @@ enum EnemyFaction { RABANDIT, QXTECH, DUUMITE }
 @export var is_infamous: bool = false
 
 @export var sprite_texture: Texture2D
+
+#ai config
+@export var aggro_range: float = 150.0
+@export var attack_range: float = 20.0
+@export var preferred_state: Enums.EnemyState = Enums.EnemyState.ATTACK_CLOSE
+@export var is_ranged: bool = false
+@export var can_heal: bool = false
+@export var can_buff: bool = false
+@export var can_shield: bool = false
+@export var can_spawn: bool = false
