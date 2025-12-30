@@ -29,6 +29,10 @@ window/size/viewport_height=270
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[global_group]
+
+enemy=""
+
 [gui]
 
 theme/custom_font="uid://c8yh52ctcd8ds"

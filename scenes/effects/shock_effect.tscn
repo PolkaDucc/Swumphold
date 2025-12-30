@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://3ilnhgr3gphi"]
+
+[ext_resource type="Texture2D" uid="uid://13c7mxot3jrv" path="res://art/sprites/objects/shock_aoe-Sheet.png" id="1_p6n71"]
+[ext_resource type="Script" uid="uid://db5jhsqvjpe1w" path="res://scenes/effects/shock_effect.gd" id="2_4w41h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jobrk"]
+atlas = ExtResource("1_p6n71")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hyjj"]
+atlas = ExtResource("1_p6n71")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6l0xc"]
+atlas = ExtResource("1_p6n71")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bbhb"]
+atlas = ExtResource("1_p6n71")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wa27"]
+atlas = ExtResource("1_p6n71")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sv7ch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jobrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hyjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6l0xc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bbhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wa27")
+}],
+"loop": true,
+"name": &"shock",
+"speed": 12.0
+}]
+
+[node name="ShockEffect" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 0.5294118, 0.5176471)
+sprite_frames = SubResource("SpriteFrames_sv7ch")
+animation = &"shock"
+frame = 4
+frame_progress = 1.0
+script = ExtResource("2_4w41h")

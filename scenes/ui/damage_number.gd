@@ -27,7 +27,7 @@ func setup(amount: int, damage_type: DamageType = DamageType.NORMAL) -> void:
 		DamageType.FIRE:
 			color = Color(1.0, 0.4, 0.1)
 		DamageType.FREEZE:
-			color = Color(0.4, 0.8, 1.0)
+			color = Color(0.0, 0.9, 1.0, 1.0)
 		DamageType.CORRUPT:
 			color = Color(0.6, 0.2, 0.8)
 		DamageType.BLEED:

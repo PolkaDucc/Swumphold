@@ -27,13 +27,12 @@ func _ready() -> void:
 func _equip_starting_weapon() -> void:
 	current_weapon = WeaponFactory.generate_weapon(character_data.starting_weapon_type)
 	current_ammo = current_weapon.final_magazine_size
-	print("=== Weapon Equipped ===")
-	print("Ammo: ", current_ammo)
-	print("Damage: ", current_weapon.final_damage)
+	
+	print("Equipped weapon with parts:")
 	for part in current_weapon.parts:
 		var type_name = Enums.PartType.keys()[part.part_type]
 		var rarity_name = Enums.Rarity.keys()[part.rarity]
-		print("  ", type_name, " (", rarity_name, ")")
+		print("  ", type_name, " (", rarity_name, "): ", part.effect_id)
 
 func _physics_process(delta: float) -> void:
 	_handle_aiming()
@@ -71,7 +70,6 @@ func _fire_weapon() -> void:
 	
 	var direction = (get_global_mouse_position() - weapon_pivot.global_position).normalized()
 	projectile.setup(direction, current_weapon)
-	print("shot fired. ammo: ", current_ammo, "/", current_weapon.final_magazine_size)
 	if current_ammo <= 0:
 		_start_reload()
 
@@ -81,12 +79,10 @@ func _handle_reload() -> void:
 
 func _start_reload() -> void:
 	is_reloading = true
-	print("reloading...")
 	
 	await get_tree().create_timer(current_weapon.final_reload_speed).timeout
 	current_ammo = current_weapon.final_magazine_size
 	is_reloading = false
-	print("Reload complete! Ammo: ", current_ammo)
 
 func take_damage(amount: int, puncture: int = 0) -> void:
 	var effective_defense = character_data.defense if character_data else 0
