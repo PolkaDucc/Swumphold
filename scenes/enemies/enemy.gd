@@ -11,6 +11,7 @@ extends CharacterBody2D
 const BASE_SPEED: float = 60.0
 const DamageNumberScene = preload("res://scenes/ui/damage_number.tscn")
 const ShockEffectScene = preload("res://scenes/effects/shock_effect.tscn")
+const GibletScene = preload("res://scenes/projectiles/giblet.tscn")
 
 var current_health: int
 var is_infamous: bool = false
@@ -29,12 +30,17 @@ var modified_defense: int
 var modified_speed: float
 var status_effects: Array[StatusEffect] = []
 var status_timers: Dictionary = {}
+var level: int = 1
+var knockback_velocity: Vector2 = Vector2.ZERO
+
 
 
 func _ready() -> void:
+	set_level(level)
 	_apply_modifiers()
 	
 	current_health = modified_health
+	attack_collision.disabled = true
 	
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	animated_sprite.frame_changed.connect(_on_frame_changed)
@@ -42,13 +48,12 @@ func _ready() -> void:
 
 	var enemy_name = enemy_data.enemy_name if enemy_data else "Enemy"
 	var modifier_text = _get_modifier_display()
-	health_bar.setup(enemy_name, modifier_text, modified_health, 1)
+	health_bar.setup(enemy_name, modifier_text, modified_health, level)
 	health_bar.hide()
 	
 	await get_tree().process_frame
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
-		target = players[0]
 		target = players[0]
 
 func _physics_process(delta: float) -> void:
@@ -60,6 +65,11 @@ func _physics_process(delta: float) -> void:
 	_process_status_effects(delta)
 	_update_state()
 	_execute_state(delta)
+
+	if knockback_velocity.length() > 0:
+		velocity += knockback_velocity
+		knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 10 * delta)
+	
 	move_and_slide()
 
 
@@ -172,7 +182,7 @@ func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 		body.take_damage(modified_damage)
 		has_hit_this_attack = true
 
-func take_damage(amount: int, puncture: int = 0) -> void:
+func take_damage(amount: int, puncture: int = 0, is_crit: bool = false, knockback: float = 0.0, knockback_dir: Vector2 = Vector2.ZERO) -> void:
 	var effective_defense = modified_defense
 	
 	var puncture_percent = clamp(puncture / 100.0, 0.0, 0.88)
@@ -194,12 +204,17 @@ func take_damage(amount: int, puncture: int = 0) -> void:
 	current_health -= final_damage
 	health_bar.update_health(current_health)
 
+	if knockback > 0 and knockback_dir != Vector2.ZERO:
+		apply_knockback(knockback_dir, knockback)
+
 	var dmg_num = DamageNumberScene.instantiate()
 	get_tree().root.add_child(dmg_num)
 	dmg_num.global_position = global_position + Vector2(0, -20)
 	
 	var damage_type = DamageNumber.DamageType.NORMAL
-	if has_status(StatusEffect.Type.FREEZE):
+	if is_crit:
+		damage_type = DamageNumber.DamageType.CRIT
+	elif has_status(StatusEffect.Type.FREEZE):
 		damage_type = DamageNumber.DamageType.FREEZE
 	elif has_status(StatusEffect.Type.DUUMITE):
 		damage_type = DamageNumber.DamageType.DUUMITE
@@ -218,6 +233,10 @@ func take_damage(amount: int, puncture: int = 0) -> void:
 		_die()
 
 func _die() -> void:
+	var player = get_tree().get_first_node_in_group("player")
+	if player and player.current_weapon:
+		player.current_weapon.on_kill()
+	
 	queue_free()
 
 func _apply_modifiers() -> void:
@@ -225,6 +244,11 @@ func _apply_modifiers() -> void:
 	modified_damage = enemy_data.damage if enemy_data else 7
 	modified_defense = enemy_data.defense if enemy_data else 15
 	modified_speed = enemy_data.move_speed if enemy_data else 1.0
+
+	var level_mult = level - 1
+	modified_health = int(modified_health * (1.0 + level_mult * 0.45))
+	modified_damage = int(modified_damage * (1.0 + level_mult * 0.15))
+	modified_defense = int(modified_defense * (1.0 + level_mult * 0.20))
 	
 	var scale_mod: float = 1.0
 
@@ -237,7 +261,6 @@ func _apply_modifiers() -> void:
 		scale_mod = scale_mod * mods.scale
 
 	animated_sprite.scale = Vector2(scale_mod, scale_mod)
-
 
 func _get_modifier_display() -> String:
 	var names: Array[String] = []
@@ -257,6 +280,8 @@ func apply_status(effect_type: StatusEffect.Type, weapon_damage: int) -> void:
 	var new_effect = StatusEffect.new(effect_type, weapon_damage)
 	status_effects.append(new_effect)
 
+func apply_knockback(direction: Vector2, force: float) -> void:
+	knockback_velocity = direction * force
 
 func _process_status_effects(delta: float) -> void:
 	var effects_to_remove: Array[StatusEffect] = []
@@ -390,9 +415,18 @@ func _chain_lightning(damage: int) -> void:
 	shock_vfx.setup(shock_radius, damage, self)
 
 func _spawn_giblets(stacks: int) -> void:
-	# TODO: spawn giblet projectiles
-	print("Spawning ", 3, " giblets with ", 15 + (stacks * 1.5), "% HP damage")
+	var giblet_count = 3
+	var damage_percent = 0.15 + (stacks * 0.015)
+	var damage = int(modified_health * damage_percent)
+	
+	for i in range(giblet_count):
+		var giblet = GibletScene.instantiate()
+		get_tree().root.add_child(giblet)
+		giblet.global_position = global_position
 
+		var angle = randf() * TAU
+		var dir = Vector2(cos(angle), sin(angle))
+		giblet.setup(dir, damage)
 
 func has_status(effect_type: StatusEffect.Type) -> bool:
 	for effect in status_effects:
@@ -400,9 +434,26 @@ func has_status(effect_type: StatusEffect.Type) -> bool:
 			return true
 	return false
 
-
 func get_status_stacks(effect_type: StatusEffect.Type) -> int:
 	for effect in status_effects:
 		if effect.type == effect_type:
 			return effect.stacks
 	return 0
+
+func set_level(new_level: int) -> void:
+	level = new_level
+	
+	# DEMO: All levels have 15% chance for modifier (regular game: level 15+)
+	if randf() <= 0.15:
+		var modifier = Enums.EnemyModifier.values()[randi() % Enums.EnemyModifier.size()]
+		modifiers.append(modifier)
+		
+		# 15% chance for second modifier
+		if randf() <= 0.10:
+			var modifier2 = Enums.EnemyModifier.values()[randi() % Enums.EnemyModifier.size()]
+			modifiers.append(modifier2)
+			
+			# 5% chance for third modifier
+			if randf() <= 0.05:
+				var modifier3 = Enums.EnemyModifier.values()[randi() % Enums.EnemyModifier.size()]
+				modifiers.append(modifier3)

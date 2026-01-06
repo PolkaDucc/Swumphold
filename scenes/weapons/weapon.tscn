@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://5ktojb8bdoxd"]
+
+[ext_resource type="Script" uid="uid://3m5w1uy5ryj" path="res://scenes/weapons/weapon.gd" id="1_nqevj"]
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_nqevj")
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+
+[node name="BarrelSprite" type="Sprite2D" parent="."]
+
+[node name="HandleSprite" type="Sprite2D" parent="."]
+
+[node name="MagazineSprite" type="Sprite2D" parent="."]

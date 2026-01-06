@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_ll0gr")
+base_accuracy = 2
 part_types = Array[int]([0, 1, 2, 3])
 metadata/_custom_type_script = "uid://dqglgg7q010ay"

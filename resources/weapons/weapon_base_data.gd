@@ -6,8 +6,7 @@ extends Resource
 
 @export var base_damage: int = 5
 @export var base_puncture: int = 0
-@export var base_accuracy_min: int = 80
-@export var base_accuracy_max: int = 100
+@export var base_accuracy: int = 3
 @export var base_fire_rate: float = 2.0
 @export var base_magazine_size: int = 12
 @export var base_crit_chance: float = 0.10

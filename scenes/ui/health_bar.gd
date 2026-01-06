@@ -37,8 +37,6 @@ func setup(enemy_name: String, modifiers: String, health: int, level: int) -> vo
 	damage_bar.value = max_health
 
 	tick_container.setup(max_health)
-	
-	show()
 
 
 func update_health(new_health: int) -> void:

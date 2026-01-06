@@ -56,3 +56,13 @@ enum EnemyModifier {
 	SPIKED,
 	ASEXUAL
 }
+
+enum Manufacturer {
+	RABANDIT,
+	FRUG,
+	GATORGUY,
+	QXTECH_WEAPONS,
+	POWERS,
+	QXTECH_RESEARCH,
+	UEO
+}

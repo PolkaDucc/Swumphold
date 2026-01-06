@@ -1,7 +1,7 @@
 extends Control
 
 var max_health: int = 100
-var tick_interval: int = 50
+var tick_interval: int = 100
 
 
 func setup(health: int) -> void:

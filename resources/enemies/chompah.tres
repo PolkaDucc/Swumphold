@@ -5,7 +5,6 @@
 [resource]
 script = ExtResource("1_s2j0a")
 enemy_name = "Chompah"
-health = 500
 move_speed = 0.7
 description = "Chompahs are basic rabandit enemies, they run towards the player and chomp them. Infamous versions of these enemies inflict bleed and puncture for 20"
 metadata/_custom_type_script = "uid://c777poxau7o6x"

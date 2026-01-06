@@ -1,6 +1,5 @@
 extends Node
 
-# Rarity weights from your design doc
 const RARITY_WEIGHTS: Dictionary = {
 	Enums.Rarity.WHITE: 33.0,
 	Enums.Rarity.GREEN: 26.9,
@@ -11,10 +10,8 @@ const RARITY_WEIGHTS: Dictionary = {
 	Enums.Rarity.PINK: 1.0,
 }
 
-# Loaded weapon bases
 var weapon_bases: Dictionary = {}
 
-# Part definitions organized by: weapon_type -> part_type -> rarity -> WeaponPartData
 var part_registry: Dictionary = {}
 
 
@@ -29,15 +26,14 @@ func _load_weapon_bases() -> void:
 
 
 func _register_parts() -> void:
-	# Initialize structure
+
 	for weapon_type in Enums.WeaponType.values():
 		part_registry[weapon_type] = {}
 		for part_type in Enums.PartType.values():
 			part_registry[weapon_type][part_type] = {}
 			for rarity in Enums.Rarity.values():
 				part_registry[weapon_type][part_type][rarity] = null
-	
-	# Register pistol parts
+
 	_register_pistol_parts()
 	_register_wand_parts()
 
@@ -143,11 +139,11 @@ func _register_pistol_parts() -> void:
 	
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.BLUE,
 		"Accuracy +3, misses grant +3 puncture and +10% damage until reload",
-		"pistol_handle_blue", 0, 0, -3)
+		"pistol_handle_blue", 0, 0, 3)
 	
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.PURPLE,
 		"Accuracy -1, hits grant +1 puncture until reload",
-		"pistol_handle_purple", 0, 0, 1)
+		"pistol_handle_purple", 0, 0, -1)
 	
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.ORANGE,
 		"Crits grant +2 puncture and -1 accuracy until miss",
@@ -290,22 +286,59 @@ func roll_rarity() -> Enums.Rarity:
 	
 	return Enums.Rarity.WHITE
 
+func get_part(weapon_type: Enums.WeaponType, part_type: Enums.PartType, rarity: Enums.Rarity) -> WeaponPartData:
+	return part_registry[weapon_type][part_type][rarity]
 
 func generate_weapon(weapon_type: Enums.WeaponType) -> WeaponInstanceData:
-	var base: WeaponBaseData = weapon_bases.get(weapon_type)
-	if base == null:
-		push_error("No base found for weapon type: " + str(weapon_type))
-		return null
+	var weapon = WeaponInstanceData.new()
 	
-	var instance = WeaponInstanceData.new()
-	instance.base = base
-	
-	# Roll a part for each part type this weapon uses
-	for part_type in base.part_types:
+	weapon.base = weapon_bases[weapon_type]
+
+	weapon.manufacturer = ManufacturerData.roll_manufacturer()
+	weapon.weapon_name = ManufacturerData.get_weapon_name(weapon.manufacturer, weapon_type)
+
+	for part_type in weapon.base.part_types:
 		var rarity = roll_rarity()
-		var part = part_registry[weapon_type][part_type][rarity]
-		if part != null:
-			instance.parts.append(part)
+		var part = get_part(weapon_type, part_type, rarity)
+		if part:
+			weapon.parts.append(part)
+
+	_apply_manufacturer_stats(weapon)
+
+	weapon.calculate_stats()
 	
-	instance.calculate_stats()
-	return instance
+	return weapon
+
+
+func _apply_manufacturer_stats(weapon: WeaponInstanceData) -> void:
+	var stat_range = ManufacturerData.get_stat_range(weapon.manufacturer)
+	var num_ups = randi_range(stat_range[0], stat_range[1])
+	var num_downs = randi_range(stat_range[2], stat_range[3])
+	
+	var stats = ["damage", "fire_rate", "puncture", "accuracy", "magazine", "crit_chance", "crit_damage", "reload_speed", "lifesteal"]
+	
+	var stat_ranges = {
+		"damage": [15, 55],
+		"fire_rate": [5, 55],
+		"puncture": [5, 30],
+		"accuracy": [-1.5, 1.5],
+		"magazine": [15, 45],
+		"crit_chance": [5, 25],
+		"crit_damage": [35, 75],
+		"reload_speed": [5, 75],
+		"lifesteal": [1, 10]
+	}
+
+	for i in range(num_ups):
+		var stat = stats[randi() % stats.size()]
+		var value = randi_range(stat_ranges[stat][0], stat_ranges[stat][1])
+		if not weapon.stat_modifiers.has(stat):
+			weapon.stat_modifiers[stat] = 0
+		weapon.stat_modifiers[stat] += value
+
+	for i in range(num_downs):
+		var stat = stats[randi() % stats.size()]
+		var value = randi_range(stat_ranges[stat][0], stat_ranges[stat][1])
+		if not weapon.stat_modifiers.has(stat):
+			weapon.stat_modifiers[stat] = 0
+		weapon.stat_modifiers[stat] -= value
