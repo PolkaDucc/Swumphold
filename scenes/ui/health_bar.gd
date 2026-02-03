@@ -5,7 +5,6 @@ extends Control
 @onready var level_label: Label = $LevelLabel
 @onready var damage_bar: ProgressBar = $DamageBar
 @onready var hp_bar: ProgressBar = $HealthBar
-@onready var status_container: HBoxContainer = $StatusContainer
 @onready var tick_container: Control = $TickContainer
 
 var max_health: int = 100

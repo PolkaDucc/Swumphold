@@ -16,6 +16,8 @@ var final_reload_speed: float
 var manufacturer: Enums.Manufacturer
 var weapon_name: String
 var stat_modifiers: Dictionary = {}
+var override_element: int = -1
+var level: int = 1
 
 func calculate_stats() -> void:
 	if not base:
@@ -30,6 +32,7 @@ func calculate_stats() -> void:
 	final_crit_damage = base.base_crit_damage
 	final_projectile_count = base.base_projectile_count
 	final_reload_speed = base.base_reload_speed
+	
 
 	for part in parts:
 		final_damage += int(base.base_damage * part.damage_modifier)
@@ -55,6 +58,7 @@ func calculate_stats() -> void:
 		final_reload_speed = max(0.5, final_reload_speed)
 
 	final_accuracy = max(1, final_accuracy)
+	final_damage = int(final_damage * (1.0 + (level - 1) * 0.15))
 
 func get_part_by_type(part_type: Enums.PartType) -> WeaponPartData:
 	for part in parts:

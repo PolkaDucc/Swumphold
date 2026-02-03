@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx6yk6cva80un"]
+
+[ext_resource type="Script" uid="uid://p6qodtqhniiv" path="res://scenes/effects/militant_aura.gd" id="1_0r3au"]
+
+[node name="MilitantAura" type="Node2D"]
+script = ExtResource("1_0r3au")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

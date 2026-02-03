@@ -7,7 +7,7 @@ var lifetime: float = 0.8
 var shake_amount: float = 0.0
 var shake_decay: float = 10.0
 
-enum DamageType { NORMAL, FIRE, FREEZE, CORRUPT, BLEED, SHOCK, INFECTED, DUUMITE, CRIT }
+enum DamageType { NORMAL, FIRE, FREEZE, CORRUPT, BLEED, SHOCK, INFECTED, DUUMITE, CRIT, HEAL }
 
 
 func setup(amount: int, damage_type: DamageType = DamageType.NORMAL) -> void:
@@ -18,14 +18,14 @@ func setup(amount: int, damage_type: DamageType = DamageType.NORMAL) -> void:
 	if amount < 15:
 		shake_amount = 0.0
 	else:
-		shake_amount = clamp((amount - 15) / 30.0, 0.0, 15.0)
+		shake_amount = clamp((amount - 15) / 30.0, 0.0, 5.0)
 
 	var color: Color
 	match damage_type:
 		DamageType.NORMAL:
 			color = Color(1.0, 1.0, 1.0)
 		DamageType.FIRE:
-			color = Color(1.0, 0.4, 0.1)
+			color = Color(0.963, 0.441, 0.0, 1.0)
 		DamageType.FREEZE:
 			color = Color(0.0, 0.9, 1.0, 1.0)
 		DamageType.CORRUPT:
@@ -39,7 +39,9 @@ func setup(amount: int, damage_type: DamageType = DamageType.NORMAL) -> void:
 		DamageType.DUUMITE:
 			color = Color(1.0, 0.4, 0.8)
 		DamageType.CRIT:
-			color = Color(0.0, 0.8, 0.6, 1.0)
+			color = Color(0.0, 0.9, 0.7, 1.0)
+		DamageType.HEAL:
+			color = Color(0.063, 1.0, 0.0, 1.0)
 	
 	add_theme_color_override("font_color", color)
 	
@@ -55,7 +57,7 @@ func _process(delta: float) -> void:
 		shake_amount = max(0, shake_amount - shake_decay * delta)
 	
 	lifetime -= delta
-	modulate.a = lifetime / 0.8
+	modulate.a = lifetime / 1.0
 	
 	if lifetime <= 0:
 		queue_free()

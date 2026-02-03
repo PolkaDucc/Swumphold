@@ -1,6 +1,6 @@
 extends Node
 
-#ts is for all the signals that any scripts can connect to :D (below u can find ways to cheat on your girlfri
+#ts is for all the signals that any scripts can connect to :D 
 
 #combat signals
 signal enemy_damaged(enemy, damage, source)

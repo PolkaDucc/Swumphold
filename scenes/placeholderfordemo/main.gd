@@ -1,7 +1,7 @@
 extends Node2D
 
 func _ready() -> void:
-	var test_level = 5
+	var test_level = 1
 	
 	for child in get_children():
 		if child is Enemy:

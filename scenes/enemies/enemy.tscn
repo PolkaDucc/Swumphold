@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dd6xynfobd0od"]
+[gd_scene load_steps=30 format=3 uid="uid://dd6xynfobd0od"]
 
 [ext_resource type="Script" uid="uid://biya1225s65ys" path="res://scenes/enemies/enemy.gd" id="1_8e3ao"]
 [ext_resource type="Texture2D" uid="uid://cq36cpu3h4ppc" path="res://art/sprites/placeholdersfordemo/Enemy_W_Bandit-Sheet.png" id="2_38ino"]
@@ -35,6 +35,30 @@ region = Rect2(256, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_qch6t"]
 atlas = ExtResource("2_38ino")
 region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smbsv"]
+atlas = ExtResource("2_38ino")
+region = Rect2(864, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_maese"]
+atlas = ExtResource("2_38ino")
+region = Rect2(896, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4f0mh"]
+atlas = ExtResource("2_38ino")
+region = Rect2(928, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc4hx"]
+atlas = ExtResource("2_38ino")
+region = Rect2(960, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6y8w"]
+atlas = ExtResource("2_38ino")
+region = Rect2(992, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2gxb"]
+atlas = ExtResource("2_38ino")
+region = Rect2(1024, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y5th1"]
 atlas = ExtResource("2_38ino")
@@ -102,6 +126,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_smbsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_maese")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4f0mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc4hx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6y8w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2gxb")
+}],
+"loop": false,
+"name": &"die",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_y5th1")
 }, {
 "duration": 1.0,
@@ -143,7 +190,7 @@ radius = 14.142136
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 21
+collision_mask = 20
 script = ExtResource("1_8e3ao")
 enemy_data = ExtResource("2_fcftc")
 
@@ -153,9 +200,7 @@ shape = SubResource("RectangleShape2D_38ino")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_smbsv")
-animation = &"attack"
-frame = 6
-frame_progress = 1.0
+animation = &"die"
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 2

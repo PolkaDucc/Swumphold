@@ -64,5 +64,7 @@ static func get_stat_mods(modifier: Enums.EnemyModifier) -> Dictionary:
 			return {"health": 1.0, "damage": 1.0, "defense": 1.0, "speed": 1.0, "scale": 1.0}
 		Enums.EnemyModifier.CAPITALIST:
 			return {"health": 2.0, "damage": 1.0, "defense": 2.0, "speed": 1.0, "scale": 1.0}
+		Enums.EnemyModifier.MILITANT:
+			return {"health": 1.25, "damage": 1.25, "defense": 1.25, "speed": 1.25, "scale": 1.0}
 		_:
 			return {"health": 1.0, "damage": 1.0, "defense": 1.0, "speed": 1.0, "scale": 1.0}

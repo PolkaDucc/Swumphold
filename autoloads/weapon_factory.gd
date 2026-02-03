@@ -51,7 +51,7 @@ func _register_pistol_parts() -> void:
 		"pistol_barrel_green")
 	
 	_create_part(pistol, Enums.PartType.BARREL, Enums.Rarity.BLUE,
-		"Fire rate locked to 0.5, +10% damage per 0.5 fire rate lost",
+		"Fire rate locked to 0.5, +45% damage per 0.5 fire rate lost",
 		"pistol_barrel_blue")
 	
 	_create_part(pistol, Enums.PartType.BARREL, Enums.Rarity.PURPLE,
@@ -59,7 +59,7 @@ func _register_pistol_parts() -> void:
 		"pistol_barrel_purple")
 	
 	_create_part(pistol, Enums.PartType.BARREL, Enums.Rarity.ORANGE,
-		"Crits give +2% fire rate and +0.5% crit chance, stacks decay after 2s",
+		"Crits give +25% fire rate and +5% crit chance, stacks decay after 2s",
 		"pistol_barrel_orange")
 	
 	_create_part(pistol, Enums.PartType.BARREL, Enums.Rarity.RED,
@@ -67,24 +67,24 @@ func _register_pistol_parts() -> void:
 		"pistol_barrel_red")
 	
 	_create_part(pistol, Enums.PartType.BARREL, Enums.Rarity.PINK,
-		"25% chance on consecutive hits to fire portal bullet",
+		"3+ consecutive hits have 75% chance to fire portal bullet",
 		"pistol_barrel_pink")
 	
 	# MAGAZINE parts (affect ammo count)
 	_create_part(pistol, Enums.PartType.MAGAZINE, Enums.Rarity.WHITE,
-		"Chance to break on reload: +15% damage, -55% ammo",
+		"Chance to break on reload: +55% damage, -55% ammo",
 		"pistol_mag_white")
 	
 	_create_part(pistol, Enums.PartType.MAGAZINE, Enums.Rarity.GREEN,
-		"Kills add 15% mag size to next mag, extra ammo adds 1% damage",
+		"Hits add 25% mag size to next mag, extra ammo adds 15% damage",
 		"pistol_mag_green")
 	
 	_create_part(pistol, Enums.PartType.MAGAZINE, Enums.Rarity.BLUE,
-		"Converge bullets into 2 magnum shots, +5% damage per bullet lost",
+		"Converge bullets into 2 magnum shots, +20% damage per bullet lost",
 		"pistol_mag_blue")
 	
 	_create_part(pistol, Enums.PartType.MAGAZINE, Enums.Rarity.PURPLE,
-		"Consecutive hits add +1 mag, 10 hits upgrades max mag by 2",
+		"Consecutive hits add +1 mag, 10 hits upgrades max mag by 1 temporarily",
 		"pistol_mag_purple")
 	
 	_create_part(pistol, Enums.PartType.MAGAZINE, Enums.Rarity.ORANGE,
@@ -105,7 +105,7 @@ func _register_pistol_parts() -> void:
 		"pistol_body_white")
 	
 	_create_part(pistol, Enums.PartType.BODY, Enums.Rarity.GREEN,
-		"Kills restore 5% mag, damage scales with mag size",
+		"Kills restore 35% mag, damage scales with 50% mag size",
 		"pistol_body_green")
 	
 	_create_part(pistol, Enums.PartType.BODY, Enums.Rarity.BLUE,
@@ -113,7 +113,7 @@ func _register_pistol_parts() -> void:
 		"pistol_body_blue", 0, 0.5)
 	
 	_create_part(pistol, Enums.PartType.BODY, Enums.Rarity.PURPLE,
-		"25% chance for 20 puncture, crits: 50% for 25",
+		"3-burst fire, 30 puncture",
 		"pistol_body_purple")
 	
 	_create_part(pistol, Enums.PartType.BODY, Enums.Rarity.ORANGE,
@@ -121,40 +121,40 @@ func _register_pistol_parts() -> void:
 		"pistol_body_orange")
 	
 	_create_part(pistol, Enums.PartType.BODY, Enums.Rarity.RED,
-		"Bullets grow over distance, +10% damage per 0.5s travel",
+		"Bullets grow over distance, +45% damage per 0.5s travel",
 		"pistol_body_red")
 	
 	_create_part(pistol, Enums.PartType.BODY, Enums.Rarity.PINK,
-		"Bullets become sonar wave, scales with mag/accuracy/fire rate",
+		"Bullets start slow, speed up, damage scales with speed",
 		"pistol_body_pink")
 	
 	# HANDLE parts (affect accuracy/puncture)
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.WHITE,
-		"Rusted: +2 accuracy score, +4 puncture",
-		"pistol_handle_white", 4, 0, 2)
+		"Rusted: +2 accuracy score, +5 puncture",
+		"pistol_handle_white", 5, 0, 2)
 	
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.GREEN,
-		"Puncture scales with max magazine size",
+		"Puncture scales with 1.5x max magazine size",
 		"pistol_handle_green")
 	
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.BLUE,
-		"Accuracy +3, misses grant +3 puncture and +10% damage until reload",
-		"pistol_handle_blue", 0, 0, 3)
+		"Accuracy +1, hits grant +5 puncture and +15% damage until reload",
+		"pistol_handle_blue", 0, 0, 1)
 	
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.PURPLE,
-		"Accuracy -1, hits grant +1 puncture until reload",
+		"Accuracy -1, +1 pierce, hits grant +1 pierce until miss, +25 puncture per pierce",
 		"pistol_handle_purple", 0, 0, -1)
 	
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.ORANGE,
-		"Crits grant +2 puncture and -1 accuracy until miss",
+		"Crits grant +2 puncture until reload",
 		"pistol_handle_orange")
 	
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.RED,
-		"Bullets home after 3s idle, homed hits deal +5 puncture",
+		"Bullets home after 2s idle, homed hits deal +50 puncture",
 		"pistol_handle_red")
 	
 	_create_part(pistol, Enums.PartType.HANDLE, Enums.Rarity.PINK,
-		"Accuracy set to 7, bullets become gem shards with +10 puncture",
+		"Accuracy set to 5, bullets become gem shards with +30 puncture",
 		"pistol_handle_pink", 10)
 
 
@@ -289,7 +289,7 @@ func roll_rarity() -> Enums.Rarity:
 func get_part(weapon_type: Enums.WeaponType, part_type: Enums.PartType, rarity: Enums.Rarity) -> WeaponPartData:
 	return part_registry[weapon_type][part_type][rarity]
 
-func generate_weapon(weapon_type: Enums.WeaponType) -> WeaponInstanceData:
+func generate_weapon(weapon_type: Enums.WeaponType, weapon_level: int = 1) -> WeaponInstanceData:
 	var weapon = WeaponInstanceData.new()
 	
 	weapon.base = weapon_bases[weapon_type]
@@ -304,7 +304,7 @@ func generate_weapon(weapon_type: Enums.WeaponType) -> WeaponInstanceData:
 			weapon.parts.append(part)
 
 	_apply_manufacturer_stats(weapon)
-
+	weapon.level = weapon_level
 	weapon.calculate_stats()
 	
 	return weapon
@@ -318,13 +318,13 @@ func _apply_manufacturer_stats(weapon: WeaponInstanceData) -> void:
 	var stats = ["damage", "fire_rate", "puncture", "accuracy", "magazine", "crit_chance", "crit_damage", "reload_speed", "lifesteal"]
 	
 	var stat_ranges = {
-		"damage": [15, 55],
-		"fire_rate": [5, 55],
+		"damage": [15, 30],
+		"fire_rate": [5, 30],
 		"puncture": [5, 30],
 		"accuracy": [-1.5, 1.5],
 		"magazine": [15, 45],
 		"crit_chance": [5, 25],
-		"crit_damage": [35, 75],
+		"crit_damage": [35, 55],
 		"reload_speed": [5, 75],
 		"lifesteal": [1, 10]
 	}
@@ -342,3 +342,19 @@ func _apply_manufacturer_stats(weapon: WeaponInstanceData) -> void:
 		if not weapon.stat_modifiers.has(stat):
 			weapon.stat_modifiers[stat] = 0
 		weapon.stat_modifiers[stat] -= value
+
+	var min_values = {
+		"damage": -60,
+		"fire_rate": -50,
+		"puncture": -10,
+		"accuracy": -2,
+		"magazine": -50,
+		"crit_chance": -10,
+		"crit_damage": -50,
+		"reload_speed": -100,
+		"lifesteal": -5
+	}
+	
+	for stat in weapon.stat_modifiers.keys():
+		if min_values.has(stat):
+			weapon.stat_modifiers[stat] = max(weapon.stat_modifiers[stat], min_values[stat])
